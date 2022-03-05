@@ -1,16 +1,19 @@
 package com.jiwon.todaysdish
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.jiwon.todaysdish.databinding.FragmentRecipeBinding
+import com.jiwon.todaysdish.databinding.FragmentStartBinding
+
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
-
-
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.jiwon.todaysdish.data.Library
+
 import com.jiwon.todaysdish.data.Row
 import com.jiwon.todaysdish.databinding.ActivityMainBinding
 
@@ -19,30 +22,28 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+class recipeFragment : Fragment() {
 
+    private var binding: FragmentRecipeBinding? = null
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val fragmentBinding = FragmentRecipeBinding.inflate(inflater, container, false)
+        binding=fragmentBinding
 
-class MainActivity : AppCompatActivity() {
-    //lateinit var binding: ActivityMainBinding //뷰바인딩!
-    private lateinit var navController: NavController
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-
-
-        //binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
-        //loadData()
-
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-
-        setupActionBarWithNavController(navController)
+        return fragmentBinding.root
     }
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //binding?.startFragment = this
+        loadData()
+
     }
-    /*
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
     fun loadData(){
         //json 컨버터를 설정해서 레트로핏 생성
         val retrofit= Retrofit.Builder()
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             .getData(resources.getString(R.string.api_key))
             .enqueue(object: Callback<Library>{ //enqueue 메서드 사용하여 서버에 요청
                 override fun onFailure(call: Call<Library>, t: Throwable) {
-                    Toast.makeText(baseContext,"서버에서 데이터를 가져올 수 없습니다.",Toast.LENGTH_LONG).show()
+                    Toast.makeText(getActivity(),"서버에서 데이터를 가져올 수 없습니다.",Toast.LENGTH_LONG).show()
                 }
                 override fun onResponse(call: Call<Library>, response: Response<Library>) {
                     showData(response.body() as Library)
@@ -64,12 +65,11 @@ class MainActivity : AppCompatActivity() {
             })
     }
     fun showData(datas:Library){
-        //val testText:TextView=binding.testid
-        //testText.text= datas.COOKRCP01.row.toString()
-        Toast.makeText(baseContext,"showData 실행.",Toast.LENGTH_LONG).show()
+
+        binding?.test?.text  = datas.COOKRCP01.row.toString()
+
 
     }
 
-     */
 
 }
