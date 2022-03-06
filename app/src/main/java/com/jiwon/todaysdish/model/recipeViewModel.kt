@@ -20,4 +20,18 @@ class recipeViewModel  : ViewModel() {
     //컵케이크 예제에서 공유 뷰 모델을 썼었지...
     //그거랑 비슷하게 사용자가 옵션 여러개를 고르게 하고, 그에 맞는 레시피를 랜덤 추천해주는 시스템을 만들까?
 
+
+    private val recipeList = mutableListOf<recipeItem>()
+
+    fun setrecipe(
+        recipeNum:Int,
+        recipeName:String
+    ) {
+        recipeList.add(recipeItem(recipeNum,recipeName))
+    }
+    fun getrecipe(): MutableList<recipeItem> {
+        return recipeList
+    }
+
+
 }
