@@ -16,6 +16,6 @@ class recipeOpenApi {
 //레트로핏에서 사용할 인터페이스
 interface recipeOpenService{
 
-    @GET("{api_key}/COOKRCP01/json/1/5")
+    @GET("{api_key}/COOKRCP01/json/1/200")
     fun getData(@Path("api_key") key: String): Call <Library>
 }
