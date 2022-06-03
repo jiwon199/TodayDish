@@ -32,18 +32,18 @@ class MainActivity : AppCompatActivity() {
         //테스트!
         //binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
-        //loadData()
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         setupActionBarWithNavController(navController)
+
     }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-    /*
+/*
     fun loadData(){
         //json 컨버터를 설정해서 레트로핏 생성
         val retrofit= Retrofit.Builder()
@@ -71,6 +71,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-     */
+ */
+
+
 
 }

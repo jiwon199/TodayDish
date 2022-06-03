@@ -1,6 +1,5 @@
 package com.jiwon.todaysdish
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,12 +10,12 @@ import com.jiwon.todaysdish.databinding.FragmentRecipeBinding
 import androidx.fragment.app.activityViewModels
 import com.jiwon.todaysdish.adapter.RecipeCardAdapter
 
-import com.jiwon.todaysdish.model.recipeViewModel
+import com.jiwon.todaysdish.model.RecipeViewModel
 
 class RecipeFragment : Fragment() {
 
     private var binding: FragmentRecipeBinding? = null
-    private val sharedViewModel: recipeViewModel by activityViewModels()
+    private val sharedViewModel: RecipeViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -31,12 +30,12 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.recipeFragment = this
-        //binding?.test?.text=entrees[0].recipeName
-        //loadData()
-        val entrees=sharedViewModel.getrecipe()
+        val entrees=sharedViewModel.getrecipe() //뷰모델에서 데이터를 가져와서 어뎁터에 넣기
         binding?.recipeRecyclerView?.adapter= RecipeCardAdapter(
             context,
-            entrees
+            entrees,
+            sharedViewModel._selecteNum
+
         )
 
 

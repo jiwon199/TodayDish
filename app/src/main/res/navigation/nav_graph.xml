@@ -18,5 +18,14 @@
         android:id="@+id/recipeFragment"
         android:name="com.jiwon.todaysdish.RecipeFragment"
         android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_recipe" >
+        <action
+            android:id="@+id/action_recipeFragment_to_detailRecipeFragment"
+            app:destination="@id/detailRecipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailRecipeFragment"
+        android:name="com.jiwon.todaysdish.DetailRecipeFragment"
+        android:label="fragment_detail_recipe"
+        tools:layout="@layout/fragment_detail_recipe" />
 </navigation>

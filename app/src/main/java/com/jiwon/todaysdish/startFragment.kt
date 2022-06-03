@@ -11,7 +11,9 @@ import androidx.fragment.app.activityViewModels
 import com.jiwon.todaysdish.databinding.FragmentStartBinding
 import androidx.navigation.fragment.findNavController
 import com.jiwon.todaysdish.data.Library
-import com.jiwon.todaysdish.model.recipeViewModel
+import com.jiwon.todaysdish.model.RecipeViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,12 +22,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class StartFragment : Fragment() {
     private var binding: FragmentStartBinding? = null
-    private val sharedViewModel: recipeViewModel by activityViewModels()
+    private val sharedViewModel: RecipeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        GlobalScope.launch{
+            //레시피 정보를 서버한테 받아서 공유 뷰 모델에 저장!
+            loadData()
+        }
         super.onCreate(savedInstanceState)
-        //레시피 정보를 서버한테 받아서 공유 뷰 모델에 저장!
-        loadData()
+
 
     }
 
@@ -34,6 +39,7 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
+
         //뷰바인딩 쓰자!
         val fragmentBinding = FragmentStartBinding.inflate(inflater, container, false)
         binding = fragmentBinding
@@ -41,11 +47,14 @@ class StartFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         binding?.startFragment = this
         binding?.recipeListButton?.setOnClickListener{
+
             findNavController().navigate(R.id.action_startFragment_to_recipeFragment)
         }
+
 
 
     }
@@ -77,10 +86,11 @@ class StartFragment : Fragment() {
 
         var count=1
         for (r in datas.COOKRCP01.row){
-            sharedViewModel.setrecipe(count,r.RCP_NM)
+            sharedViewModel.setrecipe(count,r)
             count+=1
         }
         Log.v("test","서버로부터 데이터를 가져옴")
+        Toast.makeText( context,"로드..", Toast.LENGTH_SHORT).show()
     }
 
 

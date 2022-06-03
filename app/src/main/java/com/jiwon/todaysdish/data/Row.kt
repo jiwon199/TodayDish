@@ -51,7 +51,7 @@ data class Row(
     val MANUAL_IMG19: String,
     val MANUAL_IMG20: String,
     val RCP_NM: String,
-    val RCP_PARTS_DTLS: String,
+    val RCP_PARTS_DTLS: String, //필요 재료
     val RCP_PAT2: String,
     val RCP_SEQ: String,
     val RCP_WAY2: String
